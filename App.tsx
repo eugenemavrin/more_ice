@@ -5,19 +5,19 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
+import { combineReducers, createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux';
+import AppFooterContainer from './containres/AppFooterContainer';
+import store from './store/store'
+import { View } from 'react-native';
 
-export default function App() {
-  const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
 
-  if (!isLoadingComplete) {
-    return null;
-  } else {
-    return (
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
-    );
-  }
-}
+const App = () => (
+  <Provider store={store}>
+    <View>
+      <AppFooterContainer />
+    </View>
+  </Provider>
+)
+
+export default App;
